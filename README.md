@@ -1,5 +1,7 @@
 # SauceDemo E2E Test Automation — Playwright + TypeScript
 
+![Playwright Tests](https://github.com/marijajolevskaa-cpu/saucedemo-playwright-tests/actions/workflows/playwright.yml/badge.svg)
+
 End-to-end test suite for the SauceDemo web application, built with Playwright and TypeScript. It covers authentication and a full e-commerce purchase flow, runs across three browser engines, and executes automatically in CI on every push.
 
 ## What this suite covers
