@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
 
-// A list of users we want to test, each with expected behavior
 const users = [
   { username: 'standard_user', shouldLogIn: true },
   { username: 'problem_user', shouldLogIn: true },
@@ -11,7 +10,6 @@ const users = [
 
 test.describe('Login for different user types', () => {
 
-  // Loop over the data — this GENERATES one test per user
   for (const user of users) {
 
     test(`login attempt for ${user.username}`, async ({ page }) => {
@@ -20,10 +18,10 @@ test.describe('Login for different user types', () => {
       await loginPage.login(user.username, 'secret_sauce');
 
       if (user.shouldLogIn) {
-        // These users should reach the products page
-        await expect(page.locator('.title')).toHaveText('Products');
+        // Allow up to 15s here: performance_glitch_user is deliberately slow,
+        // so the default 5s assertion timeout causes flaky failures.
+        await expect(page.locator('.title')).toHaveText('Products', { timeout: 15000 });
       } else {
-        // The locked-out user should see an error instead
         await loginPage.expectError('locked out');
       }
     });
